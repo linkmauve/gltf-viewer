@@ -400,6 +400,21 @@ impl winit::application::ApplicationHandler<()> for GltfViewer {
                 self.orbit_controls.process_mouse_scroll(lines * 3.0);
                 self.window.as_ref().unwrap().request_redraw();
             }
+            WindowEvent::PanGesture { delta, .. } => {
+                let mut delta = delta;
+                delta.x /= 1024.;
+                delta.y /= 1024.;
+                self.orbit_controls.pan_both(delta);
+                self.window.as_ref().unwrap().request_redraw();
+            }
+            WindowEvent::PinchGesture { delta, .. } => {
+                self.orbit_controls.process_mouse_scroll(1024. * delta as f32);
+                self.window.as_ref().unwrap().request_redraw();
+            }
+            WindowEvent::RotationGesture { delta, .. } => {
+                self.orbit_controls.rotate_object(-delta * std::f32::consts::PI / 180.);
+                self.window.as_ref().unwrap().request_redraw();
+            }
             WindowEvent::KeyboardInput { event, .. } => {
                 let pressed = match event.state {
                     Pressed => true,

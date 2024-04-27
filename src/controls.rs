@@ -221,6 +221,12 @@ impl OrbitControls {
         self.pan_offset.y -= distance
     }
 
+    pub fn pan_both(&mut self, delta: PhysicalPosition<f32>) {
+        self.pan_offset.x += delta.x;
+        self.pan_offset.y += delta.y;
+        self.update();
+    }
+
     // Processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
     pub fn process_mouse_scroll(&mut self, mut yoffset: f32) {
         yoffset *= ZOOM_SENSITIVITY;
