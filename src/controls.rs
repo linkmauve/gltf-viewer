@@ -13,8 +13,8 @@ use num_traits::clamp;
 use crate::render::Camera;
 use crate::render::math::*;
 
-use glutin::dpi::PhysicalPosition;
-use glutin::dpi::PhysicalSize;
+use winit::dpi::PhysicalPosition;
+use winit::dpi::PhysicalSize;
 
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
 #[derive(PartialEq, Clone, Copy)]

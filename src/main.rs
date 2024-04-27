@@ -139,7 +139,10 @@ pub fn main() {
         TerminalMode::Stdout,
         ColorChoice::Auto);
 
-    let mut viewer = GltfViewer::new(source, width, height,
+    let mut event_loop = winit::event_loop::EventLoop::new().unwrap();
+    event_loop.set_control_flow(winit::event_loop::ControlFlow::Wait);
+
+    let mut viewer = GltfViewer::new(&mut event_loop, source, width, height,
         args.is_present("headless"),
         !args.is_present("screenshot"),
         camera_options,
@@ -159,7 +162,7 @@ pub fn main() {
         return;
     }
 
-    viewer.start_render_loop();
+    event_loop.run_app(&mut viewer).unwrap();
 }
 
 #[cfg(test)]
